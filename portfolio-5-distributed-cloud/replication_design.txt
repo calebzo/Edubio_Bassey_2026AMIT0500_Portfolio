@@ -1,0 +1,10 @@
+Portfolio 5: Distributed Database Design (Replication)
+
+If this database were deployed across multiple servers for high availability, I would implement Primary-Replica (Master-Slave) Streaming Replication.
+
+1. Primary Server: Handles all write operations (INSERT, UPDATE, DELETE) from the hospital application.
+2. Replica Server: A read-only copy that streams changes from the Primary in near real-time.
+
+Why? If the Primary server goes down, the Replica can be promoted to take over, ensuring the hospital system does not crash (High Availability). 
+
+Trade-off: Asynchronous replication introduces a risk of "stale reads." If a patient updates their phone number, a doctor querying the Replica server might see the old number for a few seconds until the data syncs. If this is unacceptable for medical records, I would use Synchronous replication, but that slows down write speeds.
